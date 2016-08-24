@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <AS id="AS0" routing="Full">
+    <cluster id="my_cluster" prefix="c-" suffix=".me" radical="1-4"
+             power="4.2e9" bw="10000000000000000000000000000" lat="5E-5"
+             bb_bw="2250000000" bb_lat="5E-4"
+             router_id="router1"/>
+	     
+    <AS id="AS1" routing="Full">
+      <host id="host1" power="4.2e8"/>
+    </AS>
+							   
+    <link id="link1" bandwidth="100000" latency="0.01"/>
+  
+    <ASroute src="my_cluster" dst="AS1" gw_src="router1" gw_dst="host1">
+      <link_ctn id="link1"/>
+    </ASroute>
+  </AS>
+</platform>

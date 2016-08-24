@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <AS id="AS0" routing="Full">
+    <cluster id="my_cluster" prefix="c-" suffix=".me" radical="1-2"
+             power="4.2e9" bw="10000000000000000000000000000" lat="5E-5"/>
+  </AS>
+</platform>

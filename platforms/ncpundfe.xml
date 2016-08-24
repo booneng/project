@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <AS id="AS0" routing="Full">
+    <host id="mainCPU" power="1"/>
+    <host id="CPU1" power="1"/>
+    <host id="CPU2" power="1"/>
+    <host id="CPU3" power="1"/>
+    <host id="CPU4" power="1"/>
+    <host id="DFE1" power="1"/>
+    <host id="DFE2" power="1"/>
+    <host id="DFE3" power="1"/>
+    <host id="DFE4" power="1"/>
+    <host id="endCPU" power="1"/>
+        <host id="CPU5" power="1"/>
+    <host id="DFE7" power="1"/>
+    <host id="DFE6" power="1"/>
+    <host id="DFE5" power="1"/>
+    <host id="DFE9" power="1"/>
+    
+    <link id="nodetoend" bandwidth="125MBps" latency="0.01"/>
+    <link id="mainCPUtonode" bandwidth="125MBps" latency="0.01"/>
+    <link id="test" bandwidth="125MBps" latency="0.01"/>
+
+    <route src="mainCPU" dst="CPU1">
+      <link_ctn id="test"/>
+    </route>
+    <route src="mainCPU" dst="CPU2">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="CPU3">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="CPU4">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="DFE1">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="DFE2">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="DFE3">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+    <route src="mainCPU" dst="DFE4">
+      <link_ctn id="mainCPUtonode"/>
+    </route>
+
+    <route src="CPU1" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="CPU2" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="CPU3" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="CPU4" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="DFE1" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="DFE2" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="DFE3" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    <route src="DFE4" dst="endCPU">
+      <link_ctn id="nodetoend"/>
+    </route>
+    
+  </AS>
+</platform>

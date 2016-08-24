@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <AS id="AS0" routing="Full">
+    <host id="CPU" power="4.2e8"/>
+
+    <host id="DFE" power="5e8"/>
+
+    
+    <link id="CPU-DFE" bandwidth="10000" latency="0.01"/>
+    <route src="CPU" dst="DFE">
+      <link_ctn id="CPU-DFE"/>
+    </route>
+  </AS>
+</platform>

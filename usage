@@ -1,0 +1,4 @@
+./multicoreSimple platforms/onecpu.xml {number of cores} {task size}
+./ncpundfe platforms/ncpundfe.xml
+./ncpundfeX platforms/ncpundfeX.xml {"CPU" or "DFE"} {number of cores} {task size}
+./CPUorDFEbest platforms/ncpundfeX.xml {task size}

@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <AS id="AS0" routing="Full">
+    <host id="mainCPU" power="1"/>
+    <host id="CPU" power="1"/>
+    <host id="DFE" power="1"/>
+    <host id="endCPU" power="1"/>
+    <link id="mainCPUtoCPU" bandwidth="125MBps" latency="0.01"/>
+    <link id="mainCPUtoDFE" bandwidth="125MBps" latency="0.01"/>
+    <link id="CPUtoendCPU" bandwidth="125MBps" latency="0.01"/>
+    <link id="DFEtoendCPU" bandwidth="125MBps" latency="0.01"/>
+
+    <route src="mainCPU" dst="DFE">
+      <link_ctn id="mainCPUtoDFE"/>
+    </route>
+
+    <route src="mainCPU" dst="CPU">
+      <link_ctn id="mainCPUtoCPU"/>
+    </route>
+    
+    <route src="DFE" dst="endCPU">
+      <link_ctn id="DFEtoendCPU"/>
+    </route>
+    
+    <route src="CPU" dst="endCPU">
+      <link_ctn id="CPUtoendCPU"/>
+    </route>
+  </AS>
+</platform>

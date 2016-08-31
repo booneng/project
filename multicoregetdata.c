@@ -43,12 +43,12 @@ int master(int argc, char *argv[])
         MSG_task_create(sprintf_buffer, task_comp_size, task_comm_size,
                         NULL);
     if (number_of_tasks < 10000 || i % 10000 == 0)
-      //  XBT_INFO("Sending \"%s\" (of %ld) to mailbox \"%s\"", task->name, number_of_tasks, mailbox);
+      //XBT_INFO("Sending \"%s\" (of %ld) to mailbox \"%s\"", task->name, number_of_tasks, mailbox);
 
     MSG_task_send(task, mailbox);
   }
 
-  // XBT_INFO("All tasks have been dispatched. Let's tell everybody the computation is over.");
+  //XBT_INFO("All tasks have been dispatched. Let's tell everybody the computation is over.");
   for (i = 0; i < slaves_count; i++) {
     char mailbox[80];
 
@@ -57,7 +57,7 @@ int master(int argc, char *argv[])
     MSG_task_send(finalize, mailbox);
   }
 
-//  XBT_INFO("Goodbye now!");
+  //XBT_INFO("Goodbye now!");
   return 0;
 }                               /* end_of_master */
 
@@ -79,18 +79,17 @@ int slave(int argc, char *argv[])
     res = MSG_task_receive(&(task), mailbox);
     xbt_assert(res == MSG_OK, "MSG_task_get failed");
 
-//  XBT_INFO("Received \"%s\"", MSG_task_get_name(task));
+    //XBT_INFO("Received \"%s\"", MSG_task_get_name(task));
     if (!strcmp(MSG_task_get_name(task), "finalize")) {
       MSG_task_destroy(task);
       break;
     }
-//    XBT_INFO("Processing \"%s\"", MSG_task_get_name(task));
+    //XBT_INFO("Processing \"%s\"", MSG_task_get_name(task));
     MSG_task_execute(task);
-//    XBT_INFO("\"%s\" done", MSG_task_get_name(task));
+    //XBT_INFO("\"%s\" done", MSG_task_get_name(task));
     MSG_task_destroy(task);
     task = NULL;
   }
-  //  XBT_INFO("I'm done. See you!");
   return 0;
 }                               /* end_of_slave */
 

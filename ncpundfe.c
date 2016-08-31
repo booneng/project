@@ -35,25 +35,14 @@ int main(int argc, char **argv) {
   SD_task_schedulel(task, 1, SD_workstation_get_by_name("CPU1"));
   SD_task_schedulel(end_task, 1, SD_workstation_get_by_name("mainCPU"));
 
-  while (!xbt_dynar_is_empty((changed_tasks = SD_simulate(-1.0)))) {    
-    XBT_INFO("link1: bw=%.0f, lat=%f",
-             SD_route_get_current_bandwidth(workstations[0], workstations[1]),
-             SD_route_get_current_latency(workstations[0], workstations[1]));
-    XBT_INFO("Jupiter: power=%.0f",
-             SD_workstation_get_power(workstations[0])*
-             SD_workstation_get_available_power(workstations[0]));
-    XBT_INFO("Tremblay: power=%.0f",
-             SD_workstation_get_power(workstations[1])*
-             SD_workstation_get_available_power(workstations[1]));
-    xbt_dynar_foreach(changed_tasks, count, task) {
-      XBT_INFO("Task '%s' start time: %f, finish time: %f",
-           SD_task_get_name(task),
-           SD_task_get_start_time(task), SD_task_get_finish_time(task));
-      if (SD_task_get_state(task)==SD_DONE)
-        SD_task_destroy(task);
-    }
-    xbt_dynar_free_container(&changed_tasks);
+  changed_tasks = SD_simulate(-1.0);
+  
+  xbt_dynar_foreach(changed_tasks, count, task) {
+    XBT_INFO("%s started at %f and finished at %f", SD_task_get_name(task),
+	     SD_task_get_start_time(task), SD_task_get_finish_time(task));
+    SD_task_destroy(task);
   }
+  
   xbt_dynar_free_container(&changed_tasks);
   SD_exit();
   return 0;

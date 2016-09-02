@@ -10,77 +10,46 @@ int main(int argc, char **argv) {
   int total_workstations = 0;
   const SD_workstation_t *workstations = NULL;
   xbt_dynar_t changed_tasks;
-  double task_size = atof(argv[2]);
   SD_init(&argc, argv);
   SD_create_environment(argv[1]);
   total_workstations = SD_workstation_get_number();
   workstations = SD_workstation_get_list();
 
   double minimum_time = -1;
-  int nDFE = 0;
-  int nCPU = 0;
+  int nDFE;
+  int nCPU;
   double DFE_task_size = 0;
   double CPU_task_size = 0;
   double CPU_throughput;
   double DFE_throughput;
   
-  for(int i=0; i <= task_size; i+=1000) {
-    double Dtask = i;
-    double Ctask = task_size - i;
-    double Cthroughput = -1;
-    int CPU_cores = 0;
+  printf("Enter number of CPU cores used for computation: ");
+  scanf("%d", &nCPU);
+  
+  printf("Enter task size for CPU cores: ");
+  scanf("%lf", &CPU_task_size);
 
-    if(i <= task_size) {
-      for(int j=1; j < 25; j++) {
-	double a, b, c, throughput;
-	a = 186*j;
-	b = 40.35*(1-exp(-0.3764*j)) - 12.31;
-	c = -0.007838*j + 0.7111;
-	
-	throughput = 1000*a*exp(-b*exp(-c*log(Ctask)));
-	if(throughput > Cthroughput) {
-	  Cthroughput = throughput;
-	  CPU_cores = j;
-	}
-      }
-    }
-
-    double Dthroughput = -1;
-    int DFE_cores = 0;
-
-    if(i > 0) {
-      for(int j=1; j < 5; j++) {
-	double a, b, c, throughput;
-	a = 6904*j + 8580;
-	b = 9320*exp(-1.035*j) - 12.31;
-	c = -0.08079*j + 0.7581;
-	
-	throughput = 1000*a*exp(-b*exp(-c*log(Dtask)));
-	if(throughput > Dthroughput) {
-	  Dthroughput = throughput;
-	  DFE_cores = j;
-	}
-      }
-    }
-
-    double DFE_time = Dtask/Dthroughput;
-    double CPU_time = Ctask/Cthroughput;
-    double time = (CPU_time > DFE_time) ? CPU_time:DFE_time;
+  printf("Enter number of DFEs used for computation: ");
+  scanf("%d", &nDFE);
     
-    if(time < minimum_time || minimum_time < 0) {
-      minimum_time = time;
-      nCPU = CPU_cores;
-      nDFE = DFE_cores;
-      CPU_task_size = Ctask;
-      DFE_task_size = Dtask;
-      CPU_throughput = Cthroughput;
-      DFE_throughput = Dthroughput;
-    }
-  }
+  printf("Enter task size for DFEs: ");
+  scanf("%lf", &DFE_task_size);
 
   printf("%.0f running on %d CPU core(s)\n", CPU_task_size, nCPU);
   printf("%.0f running on %d DFE(s)\n", DFE_task_size, nDFE);
 
+  double a, b, c;
+  a = 186*nCPU;
+  b = 40.35*(1-exp(-0.3764*nCPU)) - 12.31;
+  c = -0.007838*nCPU + 0.7111;
+  
+  CPU_throughput = 1000*a*exp(-b*exp(-c*log(CPU_task_size)));
+
+  a = 6904*nDFE + 8580;
+  b = 9320*exp(-1.035*nDFE) - 12.31;
+  c = -0.08079*nDFE + 0.7581;
+	
+  DFE_throughput = 1000*a*exp(-b*exp(-c*log(DFE_task_size)));
   
   if(nCPU > 0  && nDFE > 0) {
     SD_task_t start_task, end_task;

@@ -2,3 +2,4 @@
 ./ncpundfe platforms/ncpundfe.xml
 ./ncpundfeX platforms/ncpundfeX.xml {"CPU" or "DFE"} {number of cores} {task size}
 ./CPUorDFEbest platforms/ncpundfeX.xml {task size}
+./best_partition platforms/ncpundfeX.xml {task size}
